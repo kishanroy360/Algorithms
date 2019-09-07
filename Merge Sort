@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+
+void Merge (int arr[], int sPos, int ePos){
+    int mid=(sPos+ePos)/2;
+    int temp[100];
+    for (int i=mid+1;i<=ePos;i++) temp[i]=arr[i];
+    int i=mid, j=ePos, k=ePos;
+    while (i>=sPos && j>=mid+1){
+        if (arr[i]>temp[j]){
+            arr[k]=arr[i];
+            k--;i--;
+        } else {
+            arr[k]=temp[j];
+            k--;j--;
+        }
+    }
+    while (j>=mid+1){
+        arr[k]=temp[j];
+        k--;j--;
+    }
+}
+
+void MergeSort(int arr[],int sPos, int ePos){
+    if (sPos>=ePos) return;
+    int mid=(sPos+ePos)/2;
+    MergeSort(arr,sPos,mid);
+    MergeSort(arr,mid+1,ePos);
+    Merge(arr,sPos,ePos);
+}
+
+
+int main(){
+    int arr[10]={8,3,17,1,5,9,0,2,4,6};
+    int n=10;
+    MergeSort(arr,0,n-1);
+    for (int i=0;i<n;i++) cout<<arr[i]<<" "; cout<<endl;
+    cout<<BinarySearch(arr,0,n-1,7)<<endl;
+}

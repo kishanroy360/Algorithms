@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int partion(int a[],int start,int end)
+{
+	int pivot=a[end];
+	int p=start;
+	for(int i=start;i<end;i++)
+	{
+		if(a[i]<=pivot)
+		{
+			swap(a[i],a[p]);
+            p++;
+		}
+	}
+	swap(a[p],a[end]);
+	return p;
+}
+void quick(int a[],int start,int end)
+{
+    if(start>=end) return;
+    int p=partion(a,start,end);
+    quick(a,start,p-1);
+    quick(a,p+1,end);
+}
+int main()
+{
+	int a[]={4,9,1,6,8,2,5,3};
+	quick(a,0,7);
+	for(int i=0;i<=7;i++) cout<<a[i]<<" ";
+}
